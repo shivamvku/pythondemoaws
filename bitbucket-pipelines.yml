@@ -1,0 +1,15 @@
+image: python:3.5.1
+
+pipelines:
+  branches:
+    master:
+      - step:
+         caches:
+          - pip
+         script:
+            - pip install pipenv
+            - pipenv install
+            #- pipenv shell
+            #- pipenv run pylint bad.py # run the deployment script
+            - pipenv run pylint --reports=n --disable=useless-else-on-loop --const-rgx='[a-z_][a-z0-9_]{2,30}$' good.py
+           
